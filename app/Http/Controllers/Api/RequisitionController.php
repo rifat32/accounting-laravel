@@ -3,45 +3,40 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Parchase;
 use App\Models\Requisition;
 use Illuminate\Http\Request;
 
 class RequisitionController extends Controller
 {
+
     public function createRequisition(Request $request) {
         // form validation is required
-
-       $requisition =  new Requisition();
-       $requisition->rSupplier = $request->rSupplier;
-       $requisition->rReferenceNo = $request->rReferenceNo;
-       $requisition->rPurchaseDate =  $request->rPurchaseDate;
-       $requisition->rPurchaseStatus =  $request->rPurchaseStatus;
-       $requisition->rProductId =  $request->rProductId;
-       $requisition->rAmount =  $request->rAmount;
-       $requisition->rPaymentMethod =  $request->rPaymentMethod;
-       $requisition->rStatusType = "requisition";
-       $requisition->save();
-       return response()->json(["requisition"=>$requisition],201);
-        // {
-            //     "rSupplier": "",
-            //     "rReferenceNo": "",
-            //     "rPurchaseDate": "",
-            //     "rPurchaseStatus": "",
-            //     "rProductId": 2,
-            //     "rAmount": "",
-            //     "rPaymentMethod": ""
-            // }
+       $parchase =  new Parchase();
+       $parchase->supplier = $request->supplier;
+       $parchase->reference_no = $request->referenceNo;
+       $parchase->purchase_date =  $request->purchaseDate;
+       $parchase->purchase_status =  $request->purchaseStatus;
+       $parchase->product_id =  (int)$request->productId;
+    //    $parchase->amount =  $request->amount;
+       $parchase->payment_method =  $request->paymentMethod;
+       $parchase->status_type = "requisition";
+       $parchase->quantity = (int) $request->quantity;
+       $parchase->wing_id = (int) $request->wing_id;
+       $parchase->save();
+       return response()->json(["requisition"=>$parchase],201);
     }
 
+
     public function getRequisitions(Request $request) {
-        $requisitions =   Requisition::where(["rStatusType"=>"requisition"])->paginate(100);
+        $parchases =   Parchase::with("wing","product")->where(["status_type"=>"requisition"])->paginate(100);
         return response()->json([
-             "requisitions" => $requisitions
+             "requisitions" => $parchases
         ],200);
     }
     public function requisitionToParchase(Request $request) {
-        $requisition =   Requisition::where(["id"=>$request->id])
-        ->update(["rStatusType"=>"parchase"])
+        $requisition =   Parchase::where(["id"=>$request->id])
+        ->update(["status_type"=>"parchase"])
         ;
         return response()->json([
             "requisition" => $requisition

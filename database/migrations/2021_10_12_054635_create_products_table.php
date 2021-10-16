@@ -15,28 +15,13 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string("pName");
-            $table->string("pBrand");
-            $table->string("pCategory");
-            $table->string("pSku");
-            $table->string("pQuantity");
-            $table->string("pPrice");
-            
-
-//          {
-//     "pName": "aa",
-//     "pBrand": "aa",
-//     "pUnit": "",
-//     "pCategory": "aa",
-//     "pSubCategory": "",
-//     "pSku": "abcd",
-//     "pQuantity": "0",
-//     "pType": "",
-//     "pTax": "",
-//     "pTaxType": "",
-//     "pPrice": "10"
-// }
-
+            $table->string("name");
+            $table->string("brand");
+            $table->string("category");
+            $table->string("sku");
+            // $table->string("quantity");
+            $table->string("price");
+            $table->integer("wing_id");
             $table->timestamps();
         });
     }

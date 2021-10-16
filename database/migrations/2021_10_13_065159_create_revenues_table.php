@@ -22,15 +22,9 @@ class CreateRevenuesTable extends Migration
             $table->text("description");
             $table->string("category");
             $table->string("reference");
-            // {
-            //     "date": "2021-10-14",
-            //     "amount": "10",
-            //     "account": "sadefaer aeraerg ",
-            //     "customer": "erfgre gaerge",
-            //     "description": "fttghr",
-            //     "category": "eargeg",
-            //     "reference": "1015"
-            // }
+            $table->integer("wing_id");
+            $table->boolean("status")->default(false);
+
             $table->timestamps();
         });
     }

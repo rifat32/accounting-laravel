@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentsTable extends Migration
+class CreateBanksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,15 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->date("date");
-            $table->integer("amount");
-            $table->string("account");
-            $table->text("description");
-            $table->string("category");
-            $table->string("reference");
+            $table->string("name");
+            $table->string("account_number");
             $table->integer("wing_id");
-            $table->boolean("status")->default(false);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -34,6 +30,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('banks');
     }
 }

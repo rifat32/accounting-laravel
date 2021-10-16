@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCreditNotesTable extends Migration
+class CreateBalancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,12 @@ class CreateCreditNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('credit_notes', function (Blueprint $table) {
+        Schema::create('balances', function (Blueprint $table) {
             $table->id();
-            $table->date("date");
             $table->integer("amount");
-            $table->string("account");
-            $table->string("customer");
-            $table->text("description");
-            $table->string("category");
-            $table->string("reference");
             $table->integer("wing_id");
-            $table->boolean("status")->default(false);
+            // should remove bank id default option
+            $table->integer("bank_id")->default(1);
             $table->timestamps();
         });
     }
@@ -35,6 +30,6 @@ class CreateCreditNotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('credit_notes');
+        Schema::dropIfExists('balances');
     }
 }

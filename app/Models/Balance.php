@@ -5,10 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CreditNote extends Model
+class Balance extends Model
 {
     use HasFactory;
-    public function wing() {
-        return $this->hasOne(Wing::class,'id', 'wing_id');
-    }
 }

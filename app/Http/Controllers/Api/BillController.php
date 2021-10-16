@@ -20,16 +20,25 @@ class BillController extends Controller
 
         $bill =  new Bill();
         $bill->vendor = $request->vendor;
-        $bill->billDate =  $request->billDate;
-        $bill->dueDate =  $request->dueDate;
+        $bill->bill_date =  $request->billDate;
+        $bill->due_date =  $request->dueDate;
         $bill->category =  $request->category;
-        $bill->orderNumber =  (int) $request->orderNumber;
-        $bill->discountApply =  $request->discountApply;
+        $bill->order_number =  (int) $request->orderNumber;
+        $bill->discount_apply =  $request->discountApply;
+        $bill->wing_id = (int)$request->wing_id;
         $bill->save();
         return response()->json(["bill"=>$bill],201);
         }
             public function getBills(Request $request) {
-                $bills =   Bill::paginate(100);
+                $bills =   Bill::with("wing")->paginate(100);
+                return response()->json([
+                     "bills" => $bills
+                ],200);
+            }
+            public function getBillsByWing(Request $request,$wingId) {
+                $bills =   Bill::with("wing")->where([
+                    "wing_id" => $wingId
+                ])->get();
                 return response()->json([
                      "bills" => $bills
                 ],200);

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BalanceController;
+use App\Http\Controllers\Api\BankController;
 use App\Http\Controllers\Api\BillController;
 use App\Http\Controllers\Api\CreditNoteController;
 use App\Http\Controllers\Api\DebitNoteController;
@@ -39,28 +41,43 @@ Route::middleware('auth:api')->get('/v1.0/user', function (Request $request) {
 // requisitions
         Route::post('/v1.0/requisitions', [RequisitionController::class, "createRequisition"]);
         Route::get('/v1.0/requisitions', [RequisitionController::class, "getRequisitions"]);
-        Route::get('/v1.0/parchases', [ParchaseController::class, "getRequisitions"]);
-        // parchases
-        Route::post('/v1.0/parchases', [ParchaseController::class, "createRequisition"]);
+         // parchases
+        Route::get('/v1.0/parchases', [ParchaseController::class, "getParchases"]);
+        Route::post('/v1.0/parchases', [ParchaseController::class, "createParchase"]);
         Route::put('/v1.0/requisitionToParchase', [RequisitionController::class, "requisitionToParchase"]);
         // revenue
         Route::post('/v1.0/revenues', [RevenueController::class, "createRevenue"]);
         Route::get('/v1.0/revenues', [RevenueController::class, "getRevenues"]);
+        Route::put('/v1.0/revenues/approve', [RevenueController::class, "approveRevenue"]);
+
         // credit notes
         Route::post('/v1.0/credit-notes', [CreditNoteController::class, "createCreditNote"]);
         Route::get('/v1.0/credit-notes', [CreditNoteController::class, "getCreditNotes"]);
+        Route::put('/v1.0/credit-notes/approve', [CreditNoteController::class, "approveCreditNote"]);
         // Bills
+
         Route::post('/v1.0/bills', [BillController::class, "createBill"]);
         Route::get('/v1.0/bills', [BillController::class, "getBills"]);
+        Route::get('/v1.0/bills/{wingId}', [BillController::class, "getBillsByWing"]);
+
         // Payment
         Route::post('/v1.0/payments', [PaymentController::class, "createPayment"]);
         Route::get('/v1.0/payments', [PaymentController::class, "getPayment"]);
+        Route::put('/v1.0/payments/approve', [PaymentController::class, "approvePayment"]);
         // debit note
         Route::post('/v1.0/debit-notes', [DebitNoteController::class, "createDebitNote"]);
         Route::get('/v1.0/debit-notes', [DebitNoteController::class, "getDebitNotes"]);
+        Route::put('/v1.0/debit-notes/approve', [DebitNoteController::class, "approveDebitNote"]);
          // wing
          Route::post('/v1.0/wings', [WingController::class, "createWing"]);
          Route::get('/v1.0/wings', [WingController::class, "getWings"]);
+         Route::get('/v1.0/wings/all', [WingController::class, "getAllWings"]);
+        //  bank
+        Route::post('/v1.0/banks', [BankController::class, "createBank"]);
+        Route::get('/v1.0/banks', [BankController::class, "getBanks"]);
+        // balance
+
+        Route::get('/v1.0/balance', [BalanceController::class, "getTotalBalance"]);
 
 
     });

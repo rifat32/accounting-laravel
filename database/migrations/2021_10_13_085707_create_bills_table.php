@@ -16,11 +16,12 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->string("vendor");
-            $table->date("billDate");
-            $table->date("dueDate");
+            $table->date("bill_date");
+            $table->date("due_date");
             $table->string("category");
-            $table->integer("orderNumber");
-            $table->boolean("discountApply");
+            $table->integer("order_number");
+            $table->boolean("discount_apply");
+            $table->integer("wing_id");
             $table->timestamps();
             // {
             //     "vendor": "abcd",

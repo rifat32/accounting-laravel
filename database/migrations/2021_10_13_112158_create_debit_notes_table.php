@@ -15,19 +15,16 @@ class CreateDebitNotesTable extends Migration
     {
         Schema::create('debit_notes', function (Blueprint $table) {
             $table->id();
-            $table->string("bill");
+            $table->integer("bill_id");
             $table->integer("amount");
             $table->date("date");
             $table->text("description");
+            $table->integer("wing_id");
+            $table->boolean("status")->default(false);
             $table->timestamps();
 
 
-            // {
-            //     "bill": "dgefagarfe",
-            //     "amount": "100",
-            //     "date": "2021-10-14",
-            //     "description": "dfghdfg dfgh gfh gf sgjgfr rtgh rfgh strgtrfgh srgjsrf j rstjrstj yyghj"
-            // }
+
 
         });
     }

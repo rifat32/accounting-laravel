@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Bill extends Model
 {
     use HasFactory;
+    public function wing() {
+        return $this->hasOne(Wing::class,'id', 'wing_id');
+    }
+
 }

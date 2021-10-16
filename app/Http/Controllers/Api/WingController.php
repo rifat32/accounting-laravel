@@ -22,4 +22,10 @@ class WingController extends Controller
                      "wings" => $wings
                 ],200);
             }
+            public function getAllWings(Request $request) {
+                $wings =   Wing::all();
+                return response()->json([
+                     "wings" => $wings
+                ],200);
+            }
 }
