@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RequisitionController;
 use App\Http\Controllers\Api\RevenueController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -77,8 +78,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/v1.0/banks', [BankController::class, "getBanks"]);
     Route::get('/v1.0/banks/wing/{wing_id}', [BankController::class, "getBanksByWing"]);
     // balance
-
     Route::get('/v1.0/balance/total', [BalanceController::class, "getTotalBalance"]);
     Route::get('/v1.0/balance/wing-bank/{wing_id}/{bank_id}', [BalanceController::class, "getBalanceByWingAndBank"]);
     Route::get('/v1.0/balance/wing/{wing_id}', [BalanceController::class, "getBalanceByWing"]);
+    Route::patch('/v1.0/balance/transfer', [BalanceController::class, "transferBalance"]);
+    // user
+    Route::post('/v1.0/users', [UserController::class, "createUser"]);
+    Route::get('/v1.0/users', [UserController::class, "getUsers"]);
 });
