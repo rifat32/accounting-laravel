@@ -17,12 +17,14 @@ class CreateRevenuesTable extends Migration
             $table->id();
             $table->date("date");
             $table->integer("amount");
-            $table->string("account");
+            $table->string("account_number");
             $table->string("customer");
             $table->text("description");
             $table->string("category");
             $table->string("reference");
             $table->integer("wing_id");
+            $table->integer("bank_id");
+            $table->integer("transaction_id")->nullable();
             $table->boolean("status")->default(false);
 
             $table->timestamps();

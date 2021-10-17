@@ -20,11 +20,13 @@ class CreateParchasesTable extends Migration
             $table->date("purchase_date");
             $table->string("purchase_status");
             $table->integer("product_id");
-            // $table->string("amount");
             $table->string("payment_method");
             $table->string("status_type");
             $table->integer("quantity");
             $table->integer("wing_id");
+            $table->string("account_number")->nullable();
+            $table->integer("bank_id")->nullable();
+            $table->integer("transaction_id")->nullable();
 
             $table->timestamps();
         });

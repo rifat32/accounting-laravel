@@ -17,15 +17,14 @@ class CreateDebitNotesTable extends Migration
             $table->id();
             $table->integer("bill_id");
             $table->integer("amount");
+            $table->string("account_number");
             $table->date("date");
             $table->text("description");
             $table->integer("wing_id");
-            $table->boolean("status")->default(false);
+            $table->boolean("status")->default(0);
+            $table->integer("bank_id");
+            $table->integer("transaction_id")->nullable();
             $table->timestamps();
-
-
-
-
         });
     }
 
