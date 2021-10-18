@@ -3,29 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WingRequest;
 use App\Models\Wing;
 use Illuminate\Http\Request;
+use App\Http\Services\WingServices;
 
 class WingController extends Controller
 {
-    public function createWing(Request $request) {
-        //   form validation is required
-
-        $wing =  new Wing();
-        $wing->name = $request->name;
-        $wing->save();
-        return response()->json(["wing"=>$wing],201);
-        }
-            public function getWings(Request $request) {
-                $wings =   Wing::paginate(100);
-                return response()->json([
-                     "wings" => $wings
-                ],200);
-            }
-            public function getAllWings(Request $request) {
-                $wings =   Wing::all();
-                return response()->json([
-                     "wings" => $wings
-                ],200);
-            }
+    use WingServices;
+    public function createWing(WingRequest $request)
+    {
+        return $this->createWingServices($request);
+    }
+    public function getWings(Request $request)
+    {
+        return $this->getWingsServices($request);
+    }
+    public function getAllWings(Request $request)
+    {
+        return $this->getAllWingsServices($request);
+    }
 }

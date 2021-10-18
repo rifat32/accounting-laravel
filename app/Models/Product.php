@@ -8,7 +8,32 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    public function wing() {
-        return $this->hasOne(Wing::class,'id', 'wing_id');
+    protected $table = "products";
+    protected $fillable = [
+        "name",
+        "brand",
+        "category",
+        "sku",
+        "price",
+        "wing_id",
+    ];
+    protected $casts = [
+        '"price"' => 'integer',
+        "wing_id" => "integer",
+    ];
+
+
+
+
+
+
+
+
+
+
+
+    public function wing()
+    {
+        return $this->hasOne(Wing::class, 'id', 'wing_id');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DebitNoteRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,11 @@ class DebitNoteRequest extends FormRequest
     public function rules()
     {
         return [
-            "bill_id" => "required",
-            "date" => "required",
-            "amount" => "required",
-            "account_number" => "required",
-            "description" => "required",
+            "name" => "required",
+            "brand" => "required",
+            "category" => "required",
+            "sku" => "required",
+            "price" => "required",
             "wing_id" => "required",
         ];
     }

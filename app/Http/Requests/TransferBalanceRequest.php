@@ -24,11 +24,11 @@ class TransferBalanceRequest extends FormRequest
     public function rules()
     {
         return [
-            "sending_wing_id",
-            "recieving_wing_id",
-            "sending_account_number",
-            "recieving_account_number",
-            "amount",
+            "sending_wing_id" => "required",
+            "recieving_wing_id" => "required",
+            "sending_account_number" => "required",
+            "recieving_account_number" => "required",
+            "amount" => "required",
         ];
     }
 }

@@ -23,14 +23,6 @@ class CreateBillsTable extends Migration
             $table->boolean("discount_apply");
             $table->integer("wing_id");
             $table->timestamps();
-            // {
-            //     "vendor": "abcd",
-            //     "billDate": "2021-10-14",
-            //     "dueDate": "2021-10-15",
-            //     "category": "eargeg",
-            //     "orderNumber": "efewsf",
-            //     "discountApply": false
-            // }
         });
     }
 

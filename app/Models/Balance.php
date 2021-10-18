@@ -11,6 +11,9 @@ class Balance extends Model
     public function scopeGetBalance($query, $wing_id, $bank_id)
     {
         $balance =  $query->where(["wing_id" => $wing_id, "bank_id" => $bank_id])->first();
+        if (!$balance) {
+            return false;
+        }
 
         return $balance;
     }

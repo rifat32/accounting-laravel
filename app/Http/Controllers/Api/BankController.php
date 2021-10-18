@@ -3,36 +3,26 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BankRequest;
 use App\Models\Bank;
 use Illuminate\Http\Request;
+use App\Http\Services\BankServices;
 
 class BankController extends Controller
 {
-    public function createBank(Request $request)
+    use BankServices;
+    public function createBank(BankRequest $request)
     {
-        //   form validation is required
 
-        $bank =  new Bank();
-        $bank->name = $request->name;
-        $bank->account_number = $request->account_number;
-        $bank->wing_id = (int)$request->wing_id;
-        $bank->save();
-        return response()->json(["bank" => $bank], 201);
+        return $this->createBankService($request);
     }
     public function getBanks(Request $request)
     {
-        $banks =   Bank::with("wing")->paginate(100);
-        return response()->json([
-            "banks" => $banks
-        ], 200);
+        return $this->getBanksService($request);
     }
-    public function getBanksByWing($wing_id)
+    public function getBanksByWing(Request $request, $wing_id)
     {
-        $banks =   Bank::where([
-            "wing_id" => $wing_id
-        ])->get();
-        return response()->json([
-            "banks" => $banks
-        ], 200);
+
+        return $this->getBanksByWingService($request, $wing_id);
     }
 }

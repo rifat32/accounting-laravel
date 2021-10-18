@@ -30,7 +30,6 @@ trait RolesServices
         $roles = Role::paginate(100);
         return response()->json([
             "roles" => $roles,
-
         ], 200);
     }
 }
