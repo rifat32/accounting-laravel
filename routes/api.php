@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RequisitionController;
 use App\Http\Controllers\Api\RevenueController;
+use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WingController;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 
 Route::middleware('auth:api')->get('/v1.0/user', function (Request $request) {
     return $request->user();
@@ -85,4 +87,7 @@ Route::middleware(['auth:api'])->group(function () {
     // user
     Route::post('/v1.0/users', [UserController::class, "createUser"]);
     Route::get('/v1.0/users', [UserController::class, "getUsers"]);
+    // roles
+    Route::post('/v1.0/roles', [RolesController::class, "createRole"]);
+    Route::get('/v1.0/roles', [RolesController::class, "getRoles"]);
 });

@@ -20,7 +20,8 @@ trait BalanceServices
                 "account number did not match"
             ], 400);
         }
-        if ($sending_bank->id = $recieving_bank->id) {
+
+        if ($sending_bank->id === $recieving_bank->id) {
             return response()->json([
                 "Can not transfer between same bank"
             ], 400);
