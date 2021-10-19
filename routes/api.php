@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\RevenueController;
 use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WingController;
+use App\Http\Controllers\SetUpController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,12 +31,21 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth:api')->get('/v1.0/user', function (Request $request) {
-    return $request->user();
+    $user = $request->user();
+    $data["user"] = $user;
+    $data["permissions"]  = $user->getAllPermissions()->pluck('name');
+    $data["roles"] = $user->roles->pluck('name');
+
+    return response()->json(
+        $data,
+        200
+    );
 });
 Route::post('/v1.0/login', [AuthController::class, "login"]);
 Route::post('/v1.0/register', [AuthController::class, "register"]);
 // protected routes
 Route::middleware(['auth:api'])->group(function () {
+    // Route::get('/v1.0/setup', [SetUpController::class, "setUp"]);
     Route::post('/v1.0/logout', [AuthController::class, "logout"]);
     // products
     Route::post('/v1.0/products', [ProductController::class, "createProduct"]);
@@ -90,4 +100,5 @@ Route::middleware(['auth:api'])->group(function () {
     // roles
     Route::post('/v1.0/roles', [RolesController::class, "createRole"]);
     Route::get('/v1.0/roles', [RolesController::class, "getRoles"]);
+    Route::get('/v1.0/roles/all', [RolesController::class, "getRolesAll"]);
 });

@@ -28,8 +28,10 @@ class AuthController extends Controller
         $request['remember_token'] = Str::random(10);
         $user =  User::create($request->toArray());
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-
-        return response(["ok" => true, "message" => "You have successfully registered", "user" => $user, "token" => $token], 200);
+        $data["user"] = $user;
+        $data["permissions"]  = $user->getAllPermissions()->pluck('name');
+        $data["roles"] = $user->roles->pluck('name');
+        return response(["ok" => true, "message" => "You have successfully registered", "data" => $data, "token" => $token], 200);
     }
     public function login(Request $request)
     {
@@ -43,12 +45,11 @@ class AuthController extends Controller
         }
 
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
-        $role = auth()->user()->role;
-        $roleArr = explode(" ", $role);
-
-        auth()->user()->role = $roleArr;
-
-        return response()->json(['user' => auth()->user(), 'token' => $accessToken,   "ok" => true], 200);
+        $user = auth()->user();
+        $data["user"] = $user;
+        $data["permissions"]  = $user->getAllPermissions()->pluck('name');
+        $data["roles"] = $user->roles->pluck('name');
+        return response()->json(['data' => $data, 'token' => $accessToken,   "ok" => true], 200);
     }
     public function logout()
     {

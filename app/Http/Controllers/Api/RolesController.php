@@ -18,4 +18,8 @@ class RolesController extends Controller
     {
         return $this->getRolesService($request);
     }
+    public function getRolesAll(Request $request)
+    {
+        return $this->getAllRolesService($request);
+    }
 }

@@ -13,12 +13,12 @@ class SetUpController extends Controller
         $permissions =  config("setup-config.permissions");
         // setup permissions
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::create(['guard_name' => 'api', 'name' => $permission]);
         }
         // setup roles
         $roles = config("setup-config.roles");
         foreach ($roles as $role) {
-            $role = Role::create(['name' => $role]);
+            $role = Role::create(['guard_name' => 'api', 'name' => $role]);
         }
         // setup roles and permissions
         $role_permissions = config("setup-config.roles_permission");
@@ -29,7 +29,6 @@ class SetUpController extends Controller
                 $role->givePermissionTo($permission);
             }
         }
-
 
         return "You are done with setup";
     }

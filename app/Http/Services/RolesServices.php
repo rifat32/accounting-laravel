@@ -32,4 +32,11 @@ trait RolesServices
             "roles" => $roles,
         ], 200);
     }
+    public function getAllRolesService($request)
+    {
+        $roles = Role::with('permissions')->get();
+        return response()->json([
+            "roles" => $roles,
+        ], 200);
+    }
 }

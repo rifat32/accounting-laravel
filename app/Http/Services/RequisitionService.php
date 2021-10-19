@@ -13,6 +13,13 @@ trait RequisitionService
     use TransactionUtils;
     public function createRequisitionService($request)
     {
+
+        if (!$request->user()->can("create requisition")) {
+            return response()->json([
+                "message" => "you do not have permission"
+            ], 403);
+        }
+
         $request["status_type"]  = "requisition";
         if ($request["account_number"]) {
             $bank = Bank::where([
@@ -29,6 +36,16 @@ trait RequisitionService
     }
     public function getRequisitionsService($request)
     {
+
+        if (!($request->user()->can("create requisition") || $request->user()->can("cancel requisition") || $request->user()->can("approve requisition"))) {
+            return response()->json([
+                "message" => "you do not have permission"
+            ], 403);
+        }
+
+
+
+
         $parchases =   Parchase::with("wing", "product")->where(["status_type" => "requisition"])->paginate(100);
         return response()->json([
             "requisitions" => $parchases
@@ -36,6 +53,13 @@ trait RequisitionService
     }
     public function requisitionToParchaseService($request)
     {
+        if (!$request->user()->can("approve requisition")) {
+            return response()->json([
+                "message" => "you do not have permission"
+            ], 403);
+        }
+
+
         $requisitionQuery =   Parchase::where(["id" => $request->id]);
         $requisition = $requisitionQuery->first();
 

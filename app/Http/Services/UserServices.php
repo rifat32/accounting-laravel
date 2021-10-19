@@ -10,16 +10,18 @@ trait UserServices
 {
     public function createUserService($request)
     {
+
         $request['password'] = Hash::make($request['password']);
         $request['remember_token'] = Str::random(10);
         $user =  User::create($request->toArray());
+        $user->assignRole($request['role_name']);
         return response()->json([
             "user" => $user
         ], 201);
     }
     public function getUsersService($request)
     {
-        $users = User::paginate(100);
+        $users = User::with("roles")->paginate(100);
         return response()->json(["users" => $users], 200);
     }
 }
