@@ -16,6 +16,15 @@ class ProductController extends Controller
 
         return $this->createProductService($request);
     }
+    public function updateProduct(ProductRequest $request)
+    {
+
+        return $this->updateProductService($request);
+    }
+    public function deleteProduct(Request $request)
+    {
+        return $this->deleteProductServices($request);
+    }
 
     public function getProducts(Request $request)
     {

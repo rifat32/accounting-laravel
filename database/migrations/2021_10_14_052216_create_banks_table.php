@@ -17,7 +17,8 @@ class CreateBanksTable extends Migration
             $table->id();
             $table->string("name");
             $table->string("account_number");
-            $table->integer("wing_id");
+            $table->unsignedBigInteger("wing_id");
+            $table->foreign('wing_id')->references('id')->on('wings')->onDelete('cascade');
             $table->timestamps();
         });
     }

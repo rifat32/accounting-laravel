@@ -49,6 +49,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/v1.0/logout', [AuthController::class, "logout"]);
     // products
     Route::post('/v1.0/products', [ProductController::class, "createProduct"]);
+    Route::delete('/v1.0/products/{id}', [ProductController::class, "deleteProduct"]);
+
+    Route::put('/v1.0/products', [ProductController::class, "updateProduct"]);
     Route::get('/v1.0/products', [ProductController::class, "getProducts"]);
     Route::get('/v1.0/products/search/{search}', [ProductController::class, "searchProductByName"]);
     // requisitions
@@ -84,9 +87,13 @@ Route::middleware(['auth:api'])->group(function () {
     // wing
     Route::post('/v1.0/wings', [WingController::class, "createWing"]);
     Route::get('/v1.0/wings', [WingController::class, "getWings"]);
+    Route::delete('/v1.0/wings/{id}', [WingController::class, "deleteWing"]);
+    Route::put('/v1.0/wings', [WingController::class, "updateWing"]);
     Route::get('/v1.0/wings/all', [WingController::class, "getAllWings"]);
     //  bank
     Route::post('/v1.0/banks', [BankController::class, "createBank"]);
+    Route::delete('/v1.0/banks/{id}', [BankController::class, "deleteBank"]);
+    Route::put('/v1.0/banks', [BankController::class, "updateBank"]);
     Route::get('/v1.0/banks', [BankController::class, "getBanks"]);
     Route::get('/v1.0/banks/wing/{wing_id}', [BankController::class, "getBanksByWing"]);
     // balance

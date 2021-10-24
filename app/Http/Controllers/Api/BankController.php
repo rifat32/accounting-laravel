@@ -16,6 +16,15 @@ class BankController extends Controller
 
         return $this->createBankService($request);
     }
+    public function updateBank(BankRequest $request)
+    {
+
+        return $this->UpdateBankService($request);
+    }
+    public function deleteBank(Request $request)
+    {
+        return $this->deleteBankService($request);
+    }
     public function getBanks(Request $request)
     {
         return $this->getBanksService($request);

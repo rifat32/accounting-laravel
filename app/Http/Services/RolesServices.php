@@ -12,6 +12,11 @@ trait RolesServices
     {
         $role = Role::create($request->toArray());
         // $permission = Permission::create(['name' => 'edit articles']);
+        foreach ($request->permissions as $permission) {
+            $role->givePermissionTo($permission);
+        }
+
+
         return response()->json([
             "role" =>  $role,
         ], 201);
@@ -28,13 +33,14 @@ trait RolesServices
 
         // testing
         $roles = Role::paginate(100);
+
         return response()->json([
             "roles" => $roles,
         ], 200);
     }
     public function getAllRolesService($request)
     {
-        $roles = Role::with('permissions')->get();
+        $roles = Role::query()->with('permissions:name,id')->select("name", "id")->get();
         return response()->json([
             "roles" => $roles,
         ], 200);

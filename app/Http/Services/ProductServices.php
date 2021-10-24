@@ -11,6 +11,26 @@ trait ProductServices
         $product =   Product::create($request->all());
         return response()->json(["product" => $product], 201);
     }
+    public function updateProductService($request)
+    {
+
+        $product = tap(Product::where(["id" =>  $request["id"]]))->update(
+            $request->only(
+                "name",
+                "brand",
+                "category",
+                "sku",
+                "price",
+                "wing_id",
+            )
+        )->with("wing")->first();
+        return response()->json(["product" => $product], 200);
+    }
+    public function deleteProductServices($request)
+    {
+        Product::where(["id" => $request["id"]])->delete();
+        return response()->json(["ok" => true], 200);
+    }
 
     public function getProductsService($request)
     {
