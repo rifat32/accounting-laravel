@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
+use App\Models\AccountType;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -10,6 +12,31 @@ class SetUpController extends Controller
 {
     public function setUp(Request $request)
     {
+
+        // ###############
+        // accounts
+        // ###############
+
+        $accounts = config("setup-account-config");
+        foreach ($accounts as $account) {
+            $createdAccount =   Account::create(["name" => $account["name"]]);
+            $types = $account["types"];
+            foreach ($types as $type) {
+                AccountType::create([
+                    "name" => $type["name"],
+                    "account_id" => $createdAccount->id
+                ]);
+            }
+        }
+
+
+
+
+
+
+        // ###############################
+        // permissions
+        // ###############################
         $permissions =  config("setup-config.permissions");
         // setup permissions
         foreach ($permissions as $permission) {

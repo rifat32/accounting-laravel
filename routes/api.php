@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\RevenueController;
 use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WingController;
+use App\Http\Controllers\Api\CharOfAccountController;
 use App\Http\Controllers\SetUpController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -108,4 +109,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/v1.0/roles', [RolesController::class, "createRole"]);
     Route::get('/v1.0/roles', [RolesController::class, "getRoles"]);
     Route::get('/v1.0/roles/all', [RolesController::class, "getRolesAll"]);
+    // chart of account
+
+    Route::get('/v1.0/accounts', [CharOfAccountController::class, "getAccounts"]);
+    Route::post('/v1.0/chart-of-account', [CharOfAccountController::class, "createCharOfAccount"]);
+    Route::get('/v1.0/chart-of-account', [CharOfAccountController::class, "getChartOfAccounts"]);
 });
