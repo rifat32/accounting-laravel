@@ -23,9 +23,36 @@ trait PaymentServices
         $payment =  Payment::create($request->toArray());
         return response()->json(["payment" => $payment], 201);
     }
+    public function updatePaymentService($request)
+    {
+        $bank = Bank::where([
+            "account_number" => $request["account_number"],
+            "wing_id" => $request["wing_id"]
+        ])->first();
+        if (!$bank) {
+            return response()->json(["message" => "bank account number not found"], 404);
+        }
+        $request["bank_id"]  = $bank->id;
+
+        $data["payment"] =   tap(Payment::where(["id" => $request->id]))->update($request->only(
+            "date",
+            "amount",
+            "account_number",
+            "description",
+            "category",
+            "reference",
+            "wing_id",
+        ))->with("wing")->first();
+        return response()->json($data, 200);
+    }
+    public function deletePaymentService($request, $id)
+    {
+        Payment::where(["id" => $id])->delete();
+        return response()->json(["ok" => true], 200);
+    }
     public function getPaymentService($request)
     {
-        $payments =   Payment::with("wing")->paginate(100);
+        $payments =   Payment::with("wing")->paginate(10);
         return response()->json([
             "payments" => $payments
         ], 200);

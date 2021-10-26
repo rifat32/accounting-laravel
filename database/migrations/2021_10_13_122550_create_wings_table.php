@@ -16,6 +16,7 @@ class CreateWingsTable extends Migration
         Schema::create('wings', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

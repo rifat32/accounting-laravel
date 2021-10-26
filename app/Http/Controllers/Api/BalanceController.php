@@ -30,4 +30,12 @@ class BalanceController extends Controller
     {
         return $this->transferBalanceService($request);
     }
+    public function getTransfers(Request $request)
+    {
+        return $this->getTransfersService($request);
+    }
+    public function getTransfersByAccountNumber(Request $request, $account_number)
+    {
+        return $this->getTransfersByAccountNumberService($request, $account_number);
+    }
 }

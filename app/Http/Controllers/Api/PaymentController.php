@@ -16,6 +16,10 @@ class PaymentController extends Controller
     {
         return $this->createPaymentService($request);
     }
+    public function updatePayment(PaymentRequest $request)
+    {
+        return $this->updatePaymentService($request);
+    }
     public function getPayment(Request $request)
     {
         return $this->getPaymentService($request);
@@ -23,5 +27,9 @@ class PaymentController extends Controller
     public function approvePayment(Request $request)
     {
         return $this->approvePaymentService($request);
+    }
+    public function deletePayment(Request $request, $id)
+    {
+        return $this->deletePaymentService($request, $id);
     }
 }

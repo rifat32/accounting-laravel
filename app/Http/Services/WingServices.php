@@ -14,17 +14,17 @@ trait WingServices
     public function updateWingServices($request)
     {
 
-        $wing =   tap(Wing::where(["id" => $request->id]))->update(["name" => $request->name])->first();
-        return response()->json(["wing" => $request->toArray()], 200);
+        $data["wing"] =   tap(Wing::where(["id" => $request->id]))->update($request->only("name"))->first();
+        return response()->json($data, 200);
     }
-    public function deleteWingServices($request)
+    public function deleteWingServices($request, $id)
     {
-        Wing::where(["id" => $request["id"]])->delete();
+        Wing::where(["id" => $id])->delete();
         return response()->json(["ok" => true], 200);
     }
     public function getWingsServices($request)
     {
-        $wings =   Wing::paginate(100);
+        $wings =   Wing::paginate(10);
         return response()->json([
             "wings" => $wings
         ], 200);

@@ -31,6 +31,6 @@ class Revenue extends Model
 
     public function wing()
     {
-        return $this->hasOne(Wing::class, 'id', 'wing_id');
+        return $this->hasOne(Wing::class, 'id', 'wing_id')->withTrashed();
     }
 }

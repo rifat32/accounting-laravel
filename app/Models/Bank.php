@@ -21,7 +21,7 @@ class Bank extends Model
 
     public function wing()
     {
-        return $this->hasOne(Wing::class, 'id', 'wing_id');
+        return $this->hasOne(Wing::class, 'id', 'wing_id')->withTrashed();
     }
     // get bank by account number and wing id
     public function scopeGetBank($query, $wing_id, $account_number)

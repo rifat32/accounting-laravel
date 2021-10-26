@@ -34,7 +34,7 @@ trait ProductServices
 
     public function getProductsService($request)
     {
-        $products =   Product::with("wing")->paginate(100);
+        $products =   Product::with("wing")->paginate(10);
         return response()->json([
             "products" => $products
         ], 200);

@@ -43,10 +43,7 @@ trait RequisitionService
             ], 403);
         }
 
-
-
-
-        $parchases =   Parchase::with("wing", "product")->where(["status_type" => "requisition"])->paginate(100);
+        $parchases =   Parchase::with("wing", "product")->where(["status_type" => "requisition"])->paginate(10);
         return response()->json([
             "requisitions" => $parchases
         ], 200);

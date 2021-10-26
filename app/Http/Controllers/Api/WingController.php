@@ -19,9 +19,9 @@ class WingController extends Controller
     {
         return $this->updateWingServices($request);
     }
-    public function deleteWing(Request $request)
+    public function deleteWing(Request $request, $id)
     {
-        return $this->deleteWingServices($request);
+        return $this->deleteWingServices($request, $id);
     }
 
 

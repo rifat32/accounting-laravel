@@ -21,7 +21,12 @@ trait UserServices
     }
     public function getUsersService($request)
     {
-        $users = User::with("roles")->paginate(100);
+        $users = User::with("roles")->orderByDesc("id")->paginate(10);
         return response()->json(["users" => $users], 200);
+    }
+    public function deleteUserService($request, $id)
+    {
+        User::where(["id" => $id])->delete();
+        return response()->json(["ok" => true], 200);
     }
 }

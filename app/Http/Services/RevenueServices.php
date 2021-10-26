@@ -25,12 +25,41 @@ trait RevenueServices
         $revenue =  Revenue::create($request->toArray());
         return response()->json(["revenue" => $revenue], 201);
     }
+    public function updateRevenueService($request)
+    {
+        $bank = Bank::where([
+            "account_number" => $request["account_number"],
+            "wing_id" => $request["wing_id"]
+        ])->first();
+        if (!$bank) {
+            return response()->json(["message" => "bank account number not found"], 404);
+        }
+
+        $request["bank_id"]  = $bank->id;
+        $data["revenue"] =   tap(Revenue::where(["id" => $request->id]))->update($request->only(
+            "date",
+            "amount",
+            "account_number",
+            "customer",
+            "description",
+            "category",
+            "reference",
+            "wing_id"
+
+        ))->with("wing")->first();
+        return response()->json($data, 200);
+    }
     public function getRevenuesService($request)
     {
-        $revenues =   Revenue::with("wing")->paginate(100);
+        $revenues =   Revenue::with("wing")->orderByDesc("id")->paginate(10);
         return response()->json([
             "revenues" => $revenues
         ], 200);
+    }
+    public function deleteRevenueService($request, $id)
+    {
+        Revenue::where(["id" => $id])->delete();
+        return response()->json(["ok" => true], 200);
     }
     public function approveRevenueService($request)
     {

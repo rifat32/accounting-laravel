@@ -42,7 +42,7 @@ trait  BankServices
     }
     public function getBanksService($request)
     {
-        $banks =   Bank::with("wing")->paginate(100);
+        $banks =   Bank::with("wing")->paginate(10);
         return response()->json([
             "banks" => $banks
         ], 200);

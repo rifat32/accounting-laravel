@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Bank;
 
 class Transfer extends Model
 {
@@ -24,4 +25,12 @@ class Transfer extends Model
         'recieving_bank_id' => 'integer',
         'sending_bank_id' => 'integer',
     ];
+    public function senderBank()
+    {
+        return $this->hasOne(Bank::class, 'id', 'sending_bank_id');
+    }
+    public function recieverBank()
+    {
+        return $this->hasOne(Bank::class, 'id', 'recieving_bank_id');
+    }
 }

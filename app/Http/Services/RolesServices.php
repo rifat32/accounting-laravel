@@ -32,7 +32,7 @@ trait RolesServices
         // $user->assignRole('writer');
 
         // testing
-        $roles = Role::paginate(100);
+        $roles = Role::orderByDesc("id")->paginate(10);
 
         return response()->json([
             "roles" => $roles,
@@ -40,7 +40,7 @@ trait RolesServices
     }
     public function getAllRolesService($request)
     {
-        $roles = Role::query()->with('permissions:name,id')->select("name", "id")->get();
+        $roles = Role::with('permissions:name,id')->select("name", "id")->get();
         return response()->json([
             "roles" => $roles,
         ], 200);

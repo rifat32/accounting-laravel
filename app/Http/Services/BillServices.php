@@ -14,7 +14,7 @@ trait BillServices
     }
     public function getBillsService($request)
     {
-        $bills =   Bill::with("wing")->paginate(100);
+        $bills =   Bill::with("wing")->orderByDesc("id")->paginate(10);
         return response()->json([
             "bills" => $bills
         ], 200);

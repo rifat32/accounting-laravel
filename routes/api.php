@@ -66,11 +66,15 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/v1.0/revenues', [RevenueController::class, "createRevenue"]);
     Route::get('/v1.0/revenues', [RevenueController::class, "getRevenues"]);
     Route::put('/v1.0/revenues/approve', [RevenueController::class, "approveRevenue"]);
+    Route::delete('/v1.0/revenues/{id}', [RevenueController::class, "deleteRevenue"]);
+    Route::put('/v1.0/revenues', [RevenueController::class, "updateRevenue"]);
 
     // credit notes
     Route::post('/v1.0/credit-notes', [CreditNoteController::class, "createCreditNote"]);
     Route::get('/v1.0/credit-notes', [CreditNoteController::class, "getCreditNotes"]);
     Route::put('/v1.0/credit-notes/approve', [CreditNoteController::class, "approveCreditNote"]);
+    Route::delete('/v1.0/credit-notes/{id}', [CreditNoteController::class, "deleteCreditNote"]);
+    Route::put('/v1.0/credit-notes', [CreditNoteController::class, "updateCreditNote"]);
     // Bills
 
     Route::post('/v1.0/bills', [BillController::class, "createBill"]);
@@ -81,6 +85,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/v1.0/payments', [PaymentController::class, "createPayment"]);
     Route::get('/v1.0/payments', [PaymentController::class, "getPayment"]);
     Route::put('/v1.0/payments/approve', [PaymentController::class, "approvePayment"]);
+    Route::delete('/v1.0/payments/{id}', [PaymentController::class, "deletePayment"]);
+    Route::put('/v1.0/payments', [PaymentController::class, "updatePayment"]);
     // debit note
     Route::post('/v1.0/debit-notes', [DebitNoteController::class, "createDebitNote"]);
     Route::get('/v1.0/debit-notes', [DebitNoteController::class, "getDebitNotes"]);
@@ -102,9 +108,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/v1.0/balance/wing-bank/{wing_id}/{bank_id}', [BalanceController::class, "getBalanceByWingAndBank"]);
     Route::get('/v1.0/balance/wing/{wing_id}', [BalanceController::class, "getBalanceByWing"]);
     Route::patch('/v1.0/balance/transfer', [BalanceController::class, "transferBalance"]);
+    Route::get('/v1.0/transfers', [BalanceController::class, "getTransfers"]);
+    Route::get('/v1.0/transfers/{account_number}', [BalanceController::class, "getTransfersByAccountNumber"]);
+
     // user
     Route::post('/v1.0/users', [UserController::class, "createUser"]);
     Route::get('/v1.0/users', [UserController::class, "getUsers"]);
+    Route::delete('/v1.0/users/{id}', [UserController::class, "deleteUser"]);
     // roles
     Route::post('/v1.0/roles', [RolesController::class, "createRole"]);
     Route::get('/v1.0/roles', [RolesController::class, "getRoles"]);

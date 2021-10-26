@@ -94,4 +94,16 @@ trait BalanceServices
             "balance" => $balance
         ], 200);
     }
+    public function getTransfersService($request)
+    {
+        $data["transfers"] = Transfer::with("senderBank.wing", "recieverBank.wing")->orderByDesc("id")->paginate(1);
+        return response()->json($data, 200);
+    }
+    public function getTransfersByAccountNumberService($request, $account_number)
+    {
+        $data["transfers"] = Transfer::with("senderBank.wing", "recieverBank.wing")->where(["sending_account_number" => $account_number])->orWhere([
+            "recieving_account_number" => $account_number
+        ])->paginate(1);
+        return response()->json($data, 200);
+    }
 }

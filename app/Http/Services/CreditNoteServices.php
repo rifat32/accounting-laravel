@@ -24,9 +24,32 @@ trait CreditNoteServices
         $creditNote =  CreditNote::create($request->toArray());
         return response()->json(["creditNote" => $creditNote], 201);
     }
+    public function updateCreditNoteService($request)
+    {
+        $bank = Bank::where([
+            "account_number" => $request["account_number"],
+            "wing_id" => $request["wing_id"]
+        ])->first();
+        if (!$bank) {
+            return response()->json(["message" => "bank account number not found"], 404);
+        }
+
+        $request["bank_id"]  = $bank->id;
+        $data["creditNote"] =   tap(CreditNote::where(["id" => $request->id]))->update($request->only(
+            "date",
+            "amount",
+            "account_number",
+            "customer",
+            "description",
+            "category",
+            "reference",
+            "wing_id"
+        ))->with("wing")->first();
+        return response()->json($data, 200);
+    }
     public function getCreditNotesService($request)
     {
-        $creditNotes =   CreditNote::with("wing")->paginate(100);
+        $creditNotes =   CreditNote::with("wing")->orderByDesc("id")->paginate(10);
         return response()->json([
             "creditNotes" => $creditNotes
         ], 200);
@@ -59,5 +82,10 @@ trait CreditNoteServices
                 "message" => "duplicate entry"
             ], 409);
         }
+    }
+    public function deleteCreditNoteService($request, $id)
+    {
+        CreditNote::where(["id" => $id])->delete();
+        return response()->json(["ok" => true], 200);
     }
 }

@@ -25,7 +25,7 @@ trait DebitNoteServices
     }
     public function getDebitNotesService($request)
     {
-        $debitNotes =   DebitNote::with("wing", "bill")->paginate(100);
+        $debitNotes =   DebitNote::with("wing", "bill")->paginate(10);
         return response()->json([
             "debitNotes" => $debitNotes
         ], 200);

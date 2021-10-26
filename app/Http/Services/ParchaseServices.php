@@ -44,7 +44,7 @@ trait ParchaseServices
     }
     public function getParchasesService($request)
     {
-        $parchases =   Parchase::with("wing", "product")->where(["status_type" => "parchase"])->paginate(100);
+        $parchases =   Parchase::with("wing", "product")->where(["status_type" => "parchase"])->paginate(10);
         return response()->json([
             "parchases" => $parchases
         ], 200);
