@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthRegisterRequest;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -12,18 +14,18 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(AuthRegisterRequest $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|confirmed|string|min:6',
-        ]);
-        if ($validator->fails()) {
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|string|email|indisposable|max:255|unique:users',
+        //     'password' => 'required|confirmed|string|min:6',
+        // ]);
+        // if ($validator->fails()) {
 
-            return response(['errors' => $validator->errors()->all()], 422);
-        }
+        //     return response(['errors' => $validator->errors()->all()], 422);
+        // }
         $request['password'] = Hash::make($request['password']);
         $request['remember_token'] = Str::random(10);
         $user =  User::create($request->toArray());

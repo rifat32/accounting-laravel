@@ -51,17 +51,31 @@ Route::middleware(['auth:api'])->group(function () {
     // products
     Route::post('/v1.0/products', [ProductController::class, "createProduct"]);
     Route::delete('/v1.0/products/{id}', [ProductController::class, "deleteProduct"]);
-
     Route::put('/v1.0/products', [ProductController::class, "updateProduct"]);
     Route::get('/v1.0/products', [ProductController::class, "getProducts"]);
     Route::get('/v1.0/products/search/{search}', [ProductController::class, "searchProductByName"]);
+    Route::get('/v1.0/products/{id}', [ProductController::class, "getProductById"]);
     // requisitions
     Route::post('/v1.0/requisitions', [RequisitionController::class, "createRequisition"]);
     Route::get('/v1.0/requisitions', [RequisitionController::class, "getRequisitions"]);
+    Route::get('/v1.0/requisitions/return', [RequisitionController::class, "getRequisitionsReturn"]);
+    Route::get('/v1.0/requisitions/report/thismonth', [RequisitionController::class, "getRequisitionsThisMonthReport"]);
+    Route::delete('/v1.0/requisitions/{id}', [RequisitionController::class, "deleteRequisition"]);
+    Route::put('/v1.0/requisitions', [RequisitionController::class, "updateRequisition"]);
+    Route::put('/v1.0/requisitions/approve', [RequisitionController::class, "approveRequisition"]);
+
     // parchases
     Route::get('/v1.0/parchases', [ParchaseController::class, "getParchases"]);
+    Route::get('/v1.0/parchases/return', [ParchaseController::class, "getPurchasesReturn"]);
+    Route::get('/v1.0/purchase/report/thismonth', [ParchaseController::class, "getPurchaseThisMonthReport"]);
     Route::post('/v1.0/parchases', [ParchaseController::class, "createParchase"]);
+    Route::put('/v1.0/parchases', [ParchaseController::class, "updatePurchase"]);
+    Route::delete('/v1.0/parchases/{id}', [ParchaseController::class, "deletePurchase"]);
+    Route::put('/v1.0/parchases/approve', [ParchaseController::class, "approvePurchase"]);
     Route::put('/v1.0/requisitionToParchase', [RequisitionController::class, "requisitionToParchase"]);
+
+    // income @@@@@@@@@@@@@@@@
+    Route::get('/v1.0/income/report/thismonth', [RevenueController::class, "getIncomeThisMonthReport"]);
     // revenue
     Route::post('/v1.0/revenues', [RevenueController::class, "createRevenue"]);
     Route::get('/v1.0/revenues', [RevenueController::class, "getRevenues"]);
@@ -75,8 +89,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('/v1.0/credit-notes/approve', [CreditNoteController::class, "approveCreditNote"]);
     Route::delete('/v1.0/credit-notes/{id}', [CreditNoteController::class, "deleteCreditNote"]);
     Route::put('/v1.0/credit-notes', [CreditNoteController::class, "updateCreditNote"]);
-    // Bills
 
+
+    // income @@@@@@@@@@@@@@@@
+    Route::get('/v1.0/expense/report/thismonth', [PaymentController::class, "getExpenseThisMonthReport"]);
+    // Bills
     Route::post('/v1.0/bills', [BillController::class, "createBill"]);
     Route::get('/v1.0/bills', [BillController::class, "getBills"]);
     Route::get('/v1.0/bills/{wingId}', [BillController::class, "getBillsByWing"]);

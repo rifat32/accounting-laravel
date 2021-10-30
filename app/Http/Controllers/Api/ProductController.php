@@ -35,4 +35,8 @@ class ProductController extends Controller
     {
         return $this->searchProductByNameService($request);
     }
+    public function getProductById(Request $request, $id)
+    {
+        return $this->getProductByIdService($request, $id);
+    }
 }

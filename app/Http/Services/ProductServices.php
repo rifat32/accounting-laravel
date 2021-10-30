@@ -41,8 +41,22 @@ trait ProductServices
     }
     public function searchProductByNameService($request)
     {
-        $product =   Product::with("wing")->where([
+        $product =   Product::where([
             "name" => $request->search
+        ])->with("wing")->first();
+        if (!$product) {
+            return response()->json([
+                "message" => "No product is found"
+            ], 404);
+        }
+        return response()->json([
+            "product" => $product
+        ], 200);
+    }
+    public function getProductByIdService($request, $id)
+    {
+        $product =   Product::with("wing")->where([
+            "id" => $id
         ])->first();
         if (!$product) {
             return response()->json([

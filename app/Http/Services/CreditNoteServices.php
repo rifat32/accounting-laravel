@@ -62,7 +62,7 @@ trait CreditNoteServices
         if ($creditNote->status === 0 || $creditNote->status === false) {
             DB::transaction(function () use (&$creditNoteQuery, &$creditNote) {
                 $creditNoteQuery->update([
-                    "status" => true
+                    "status" => 1
                 ]);
 
                 $transaction_id = $this->updateBalanceAndTransaction($creditNote->wing_id, $creditNote->bank_id, $creditNote->account_number, $creditNote->amount, "creditNote");

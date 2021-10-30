@@ -34,4 +34,8 @@ class RevenueController extends Controller
     {
         return $this->approveRevenueService($request);
     }
+    public function getIncomeThisMonthReport(Request $request)
+    {
+        return $this->getIncomeThisMonthReportService($request);
+    }
 }

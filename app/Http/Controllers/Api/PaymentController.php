@@ -32,4 +32,8 @@ class PaymentController extends Controller
     {
         return $this->deletePaymentService($request, $id);
     }
+    public function getExpenseThisMonthReport(Request $request)
+    {
+        return $this->getExpenseThisMonthReportService($request);
+    }
 }
